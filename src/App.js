@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ChakraProvider, Box, theme } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './components/ColorModeSwitcher';
-import {Blob} from "./components/Blob"
-
+import { TwitterPage } from '../src/pages/TwitterPage';
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="start" fontSize="xl">
-        <ColorModeSwitcher />
-        <Blob/>
+        <TwitterPage />
       </Box>
     </ChakraProvider>
   );
