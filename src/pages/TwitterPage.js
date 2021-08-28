@@ -8,7 +8,7 @@ export const TwitterPage = () => {
         <GridItem colStart="1" justifySelf="end">
           <Navigation />
         </GridItem>
-        <GridItem colStart="2">
+        <GridItem colStart="2" >
           <Feed />
         </GridItem>
         <GridItem colStart="3"></GridItem>
