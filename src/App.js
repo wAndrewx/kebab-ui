@@ -12,7 +12,7 @@ function App() {
             <TwitterPage />
           </Box>
         </Route>
-        <Route path="/login">
+        <Route path="/">
           <LoginPage />
         </Route>
       </Router>
