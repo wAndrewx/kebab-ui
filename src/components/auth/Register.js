@@ -2,6 +2,7 @@ import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useInput } from '../utils/useInput';
 import { register } from '../utils/auth';
 import { useState } from 'react';
+import { AuthAlert } from './AuthAlert';
 export const Register = () => {
   const email = useInput();
   const username = useInput();
@@ -54,10 +55,10 @@ export const Register = () => {
           }}
         />
       </FormControl>
-      <Button my="4" rounded="full" type="submit">
+      <Button my="4" rounded="full" type="submit" style={{ isLoading: false }}>
         Submit
       </Button>
-      <div>message:{notification}</div>
+      <AuthAlert message={notification} />
     </form>
   );
 };

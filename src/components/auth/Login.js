@@ -2,11 +2,14 @@ import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useInput } from '../utils/useInput';
 import { login } from '../utils/auth';
+import { useHistory } from 'react-router-dom';
+import { AuthAlert } from './AuthAlert';
 
 export const Login = () => {
   const username = useInput();
   const password = useInput();
   const [notification, setNotif] = useState('');
+  const history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -18,6 +21,8 @@ export const Login = () => {
     setNotif(logging.message);
     if (logging.token) {
       localStorage.setItem('token', logging.token);
+      localStorage.setItem('isLogged', true);
+      history.push('/feed');
     }
   };
 
@@ -47,7 +52,7 @@ export const Login = () => {
       <Button my="4" rounded="full" type="submit">
         Submit
       </Button>
-      {notification}
+      <AuthAlert message={notification} />
     </form>
   );
 };
