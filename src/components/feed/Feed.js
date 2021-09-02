@@ -48,7 +48,7 @@ export const Feed = () => {
           <Button>Tweet</Button>
         </VStack>
       </Box>
-      <Box maxW="600px" w="600px">
+      <Box maxW="600px" >
         <Tweet />
         <Tweet />
         <Tweet />
