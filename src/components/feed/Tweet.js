@@ -1,9 +1,12 @@
 import { Box, Button, Flex, IconButton, Stack, Text } from '@chakra-ui/react';
 import { ChatIcon, Icon, RepeatIcon, StarIcon } from '@chakra-ui/icons';
 import { TweetButtons } from './TweetButtons';
-
+import { tweet } from '../utils/tweetRequests';
 export const Tweet = ({ name }) => {
-  name = 'Andrew';
+  const handleCreateTweet = () => {};
+  const handleLikes = () => {};
+  const handleDelete = () => {};
+  const handleRetweet = () => {};
   return (
     <Box display="flex" borderBottom="1px" borderColor="gray.500">
       <Flex
@@ -17,7 +20,7 @@ export const Tweet = ({ name }) => {
         mt="4"
         position="absolute"
       >
-        {name[0]}
+        A
       </Flex>
       <Stack direction="column" mt="4" ml="20">
         <Box

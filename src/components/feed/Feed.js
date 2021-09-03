@@ -1,13 +1,27 @@
 import { Box, Button, Flex, Textarea, VStack } from '@chakra-ui/react';
+import { useCallback, useState, useEffect } from 'react';
+import { tweet } from '../utils/tweetRequests';
 import { Tweet } from './Tweet';
-//tweets
 export const Feed = () => {
+  const [tweetsFetched, setTweetsFetched] = useState([]);
+  const [token, setToken] = useState();
+  useEffect(() => {
+    let localToken = localStorage.getItem('token');
+    console.log(typeof localToken);
+    setToken(localToken);
+    handleFeed();
+  }, []);
+  const handleFeed = useCallback(async () => {
+    let feed = await tweet(token).getTweet();
+    setTweetsFetched(feed);
+    console.log(feed);
+  }, []);
+
   return (
     <Box height="100%" borderX="1px" borderColor="gray.500" maxW="600px">
       {/* get tweet in here and then put shit in <Tweet> */}
       <Box
         pt="2"
-        w="100%"
         h="6vh"
         alignItems="baseline"
         display="flex"
@@ -24,7 +38,11 @@ export const Feed = () => {
         borderBottom="1px"
         borderColor="gray.500"
         display="flex"
-        justifyContent="space-between"
+        flexDirection="row"
+        flexBasis="auto"
+        mt="4"
+        pr="4"
+        p="2"
       >
         <Flex
           boxSize="14"
@@ -33,33 +51,31 @@ export const Feed = () => {
           align="center"
           justifyContent="center"
           fontWeight="bold"
-          mx="2"
-          mt="4"
+          mr="6"
+          p="6"
         >
           A
         </Flex>
-        <VStack align='end' w='100%'> 
+
+        <VStack w="100%">
           <Textarea
             resize="none"
-            border="0"
-            border="1px"
-            alignSelf="baseline"
+            maxLength="280"
+            overflowY=""
+            variant="flushed"
           />
-          <Button>Tweet</Button>
+          <Button
+            mx="4"
+            alignSelf="end"
+            colorScheme="twitter"
+            bg="twitter.500"
+            rounded="full"
+          >
+            Tweet
+          </Button>
         </VStack>
       </Box>
-      <Box maxW="600px" >
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
-        <Tweet />
+      <Box maxW="600px">
         <Tweet />
       </Box>
     </Box>

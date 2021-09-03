@@ -10,28 +10,56 @@ export const tweet = token => {
   };
 
   const deleteTweet = async id => {
-    let res = await axios.delete(`${API_URL}/api/kebab/${id}`, options);
+    try {
+      let res = await axios.delete(`${API_URL}/api/kebab/${id}`, options);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const getTweet = async () => {
-    let res = await axios.get(`${API_URL}/api/kebab/`, options);
-    return res.data;
+    try {
+      let res = await axios.get(`${API_URL}/api/kebab/feed`, options);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
   };
   const makeTweet = async content => {
-    let res = await axios.post(`${API_URL}/api/kebab/`, content, options);
+    try {
+      let res = await axios.post(`${API_URL}/api/kebab/`, content, options);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const likeTweet = async (like, id) => {
-    let res = await axios.put(`${API_URL}/api/kebab/like/${id}`, like, options);
+    try {
+      let res = await axios.put(
+        `${API_URL}/api/kebab/like/${id}`,
+        like,
+        options
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   const reTweet = async (rekebab, id) => {
-    let res = await axios.put(
-      `${API_URL}/api/kebab/rekebab/${id}`,
-      rekebab,
-      options
-    );
+    try {
+      let res = await axios.put(
+        `${API_URL}/api/kebab/rekebab/${id}`,
+        rekebab,
+        options
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   const userProfileTweets = async id => {
-    let res = await axios.get(`${API_URL}/api/kebab/${id}`, options);
-    return res.data;
+    try {
+      let res = await axios.get(`${API_URL}/api/kebab/${id}`, options);
+      return res.data;
+    } catch (error) {
+      return error.response.data;
+    }
   };
   return {
     deleteTweet,
