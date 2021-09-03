@@ -1,21 +1,24 @@
 import { Box, Button, Flex, Textarea, VStack } from '@chakra-ui/react';
 import { useCallback, useState, useEffect } from 'react';
 import { tweet } from '../utils/tweetRequests';
+import { useInput } from '../utils/useInput';
 import { Tweet } from './Tweet';
 export const Feed = () => {
   const [tweetsFetched, setTweetsFetched] = useState([]);
-  const [token, setToken] = useState();
+  const content = useInput();
   useEffect(() => {
-    let localToken = localStorage.getItem('token');
-    console.log(typeof localToken);
-    setToken(localToken);
-    handleFeed();
+    handleFeed(localStorage.getItem('token'));
   }, []);
-  const handleFeed = useCallback(async () => {
+
+  const handleFeed = async token => {
     let feed = await tweet(token).getTweet();
-    setTweetsFetched(feed);
-    console.log(feed);
-  }, []);
+    feed.data.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date);
+    });
+    setTweetsFetched(feed.data);
+  };
+
+  const handlePost = async token => {};
 
   return (
     <Box height="100%" borderX="1px" borderColor="gray.500" maxW="600px">
@@ -63,6 +66,10 @@ export const Feed = () => {
             maxLength="280"
             overflowY=""
             variant="flushed"
+            onChange={e => {
+              content.handleData(e)
+              console.log(280 - e.target.value.length);
+            }}
           />
           <Button
             mx="4"
@@ -76,7 +83,18 @@ export const Feed = () => {
         </VStack>
       </Box>
       <Box maxW="600px">
-        <Tweet />
+        {tweetsFetched.map((item, index) => {
+          return (
+            <Tweet
+              likes={item.likes}
+              reKebabs={item.reKebabs}
+              content={item.content}
+              user={item.user}
+              date={item.date}
+              id={item.id}
+            />
+          );
+        })}
       </Box>
     </Box>
   );

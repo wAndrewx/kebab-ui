@@ -22,6 +22,7 @@ export const Login = () => {
     if (logging.token) {
       localStorage.setItem('token', logging.token);
       localStorage.setItem('isLogged', true);
+      localStorage.setItem('user', logging.user);
       history.push('/feed');
     }
   };

@@ -8,6 +8,7 @@ export const tweet = token => {
       Authorization: `Bearer ${token}`,
     },
   };
+  console.log(options.headers)
 
   const deleteTweet = async id => {
     try {
@@ -19,9 +20,11 @@ export const tweet = token => {
   const getTweet = async () => {
     try {
       let res = await axios.get(`${API_URL}/api/kebab/feed`, options);
+      console.log(res)
       return res;
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
+      return error.response
     }
   };
   const makeTweet = async content => {

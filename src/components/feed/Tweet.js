@@ -2,7 +2,7 @@ import { Box, Button, Flex, IconButton, Stack, Text } from '@chakra-ui/react';
 import { ChatIcon, Icon, RepeatIcon, StarIcon } from '@chakra-ui/icons';
 import { TweetButtons } from './TweetButtons';
 import { tweet } from '../utils/tweetRequests';
-export const Tweet = ({ name }) => {
+export const Tweet = ({ likes, reKebabs, content, user, date, id }) => {
   const handleCreateTweet = () => {};
   const handleLikes = () => {};
   const handleDelete = () => {};
@@ -20,7 +20,7 @@ export const Tweet = ({ name }) => {
         mt="4"
         position="absolute"
       >
-        A
+        {user.username[0]}
       </Flex>
       <Stack direction="column" mt="4" ml="20">
         <Box
@@ -30,7 +30,7 @@ export const Tweet = ({ name }) => {
           fontWeight="bold"
           px="2"
         >
-          andrew
+          {user ? user.username : 'null'}
         </Box>
         <Box
           id="content"
@@ -40,10 +40,7 @@ export const Tweet = ({ name }) => {
           m="0"
           p="2"
         >
-          tweet herewefaefa tweet hereefaefweet here tweet hereawefawef tweet
-          here tweet herasfefae tweet heasefaefre tweet here tweet here tweet
-          here tweet here tweet here tweet here twaefawt here tweet here tweet
-          here tweet here tweet here
+          {content}
         </Box>
         <Box
           id="tweet-buttons"
@@ -53,9 +50,9 @@ export const Tweet = ({ name }) => {
           pr="16"
           m="0"
         >
-          <TweetButtons type={<ChatIcon />} number="2" />
-          <TweetButtons type={<RepeatIcon />} number="2" />
-          <TweetButtons type={<StarIcon />} number="2" />
+          <TweetButtons type={<ChatIcon />} number={'0'} />
+          <TweetButtons type={<RepeatIcon />} number={reKebabs || 0} />
+          <TweetButtons type={<StarIcon />} number={likes || 0} />
         </Box>
       </Stack>
     </Box>
