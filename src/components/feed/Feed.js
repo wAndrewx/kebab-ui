@@ -82,7 +82,7 @@ export const Feed = () => {
           mr="6"
           p="6"
         >
-          A
+          {localStorage.getItem('user').charAt(0)}
         </Flex>
 
         <VStack w="100%">

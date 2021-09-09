@@ -12,7 +12,7 @@ export const Navigation = () => {
   const icon = useColorModeValue('light-', 'dark-');
   console.log(`${icon}home.png`);
   return (
-    <Flex w="500px" dir="row" justify="end">
+    <Flex dir="row" justifyContent="end" px="2" position="fixed">
       <Stack
         direction="column"
         align="flex-start"
@@ -35,6 +35,7 @@ export const Navigation = () => {
           p="3"
           colorScheme="twitter"
           alignSelf="center"
+          bg="twitter.500"
         >
           Tweet
         </Button>
