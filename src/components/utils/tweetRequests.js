@@ -8,11 +8,12 @@ export const tweet = token => {
       Authorization: `Bearer ${token}`,
     },
   };
-  console.log(options.headers)
 
   const deleteTweet = async id => {
     try {
+      console.log(options)
       let res = await axios.delete(`${API_URL}/api/kebab/${id}`, options);
+      return res;
     } catch (error) {
       console.log(error);
     }
@@ -20,38 +21,37 @@ export const tweet = token => {
   const getTweet = async () => {
     try {
       let res = await axios.get(`${API_URL}/api/kebab/feed`, options);
-      console.log(res)
+      console.log(res);
       return res;
     } catch (error) {
       console.log(error.response);
-      return error.response
+      return error.response;
     }
   };
   const makeTweet = async content => {
     try {
       let res = await axios.post(`${API_URL}/api/kebab/`, content, options);
+      return res;
     } catch (error) {
       console.log(error);
     }
   };
-  const likeTweet = async (like, id) => {
+  const likeTweet = async id => {
     try {
-      let res = await axios.put(
-        `${API_URL}/api/kebab/like/${id}`,
-        like,
-        options
-      );
+      let res = await axios.put(`${API_URL}/api/kebab/like/${id}`, {}, options);
+      return res;
     } catch (error) {
       console.log(error);
     }
   };
-  const reTweet = async (rekebab, id) => {
+  const reTweet = async id => {
     try {
       let res = await axios.put(
         `${API_URL}/api/kebab/rekebab/${id}`,
-        rekebab,
+        {},
         options
       );
+      return res;
     } catch (error) {
       console.log(error);
     }

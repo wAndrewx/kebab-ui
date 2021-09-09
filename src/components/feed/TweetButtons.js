@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, Text } from '@chakra-ui/react';
 
-export const TweetButtons = ({ number, clicked, type }) => {
+export const TweetButtons = ({ number, fn, type, id }) => {
   return (
     <Box display="flex" alignItems="center">
       <IconButton
@@ -8,6 +8,7 @@ export const TweetButtons = ({ number, clicked, type }) => {
         variant="ghost"
         boxSize="8"
         icon={type}
+        onClick={fn}
       ></IconButton>
       <Text fontSize="md" fontWeight="light" letterSpacing="wider">
         {number}

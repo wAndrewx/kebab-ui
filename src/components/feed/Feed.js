@@ -5,7 +5,7 @@ import { useInput } from '../utils/useInput';
 import { Tweet } from './Tweet';
 export const Feed = () => {
   const [tweetsFetched, setTweetsFetched] = useState([]);
-  const content = useInput();
+  const contentTweet = useInput();
   useEffect(() => {
     handleFeed(localStorage.getItem('token'));
   }, []);
@@ -18,7 +18,32 @@ export const Feed = () => {
     setTweetsFetched(feed.data);
   };
 
-  const handlePost = async token => {};
+  const handlePost = async e => {
+    e.preventDefault();
+    let token = localStorage.getItem('token');
+    let content = { content: contentTweet.data };
+    if (contentTweet.data.length > 0) {
+      let create = await tweet(token).makeTweet(content);
+      setTweetsFetched(
+        tweetsFetched.concat(create.data).sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        })
+      );
+      contentTweet.resetField();
+    }
+  };
+
+  const handleDeleteTweet = async id => {
+    let token = localStorage.getItem('token');
+    let user = localStorage.getItem('user');
+    console.log(id);
+    await tweet(token).deleteTweet(id);
+    setTweetsFetched(
+      tweetsFetched.filter(val => {
+        return id !== val.id;
+      })
+    );
+  };
 
   return (
     <Box height="100%" borderX="1px" borderColor="gray.500" maxW="600px">
@@ -66,8 +91,9 @@ export const Feed = () => {
             maxLength="280"
             overflowY=""
             variant="flushed"
+            placeholder={"What's happening?"}
             onChange={e => {
-              content.handleData(e)
+              contentTweet.handleData(e);
               console.log(280 - e.target.value.length);
             }}
           />
@@ -77,6 +103,7 @@ export const Feed = () => {
             colorScheme="twitter"
             bg="twitter.500"
             rounded="full"
+            onClick={handlePost}
           >
             Tweet
           </Button>
@@ -87,11 +114,14 @@ export const Feed = () => {
           return (
             <Tweet
               likes={item.likes}
+              usersLiked={item.usersLiked}
+              usersRetweet={item.usersRetweet}
               reKebabs={item.reKebabs}
               content={item.content}
               user={item.user}
               date={item.date}
               id={item.id}
+              handleDeleteTweet={handleDeleteTweet}
             />
           );
         })}

@@ -7,5 +7,9 @@ export const useInput = () => {
     setData(e.target.value);
   };
 
-  return { data, handleData };
+  const resetField = e => {
+    setData('');
+  };
+
+  return { data, handleData, resetField };
 };

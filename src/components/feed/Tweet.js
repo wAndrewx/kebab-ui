@@ -1,12 +1,65 @@
 import { Box, Button, Flex, IconButton, Stack, Text } from '@chakra-ui/react';
-import { ChatIcon, Icon, RepeatIcon, StarIcon } from '@chakra-ui/icons';
+import {
+  ChatIcon,
+  DeleteIcon,
+  Icon,
+  RepeatIcon,
+  StarIcon,
+} from '@chakra-ui/icons';
 import { TweetButtons } from './TweetButtons';
 import { tweet } from '../utils/tweetRequests';
-export const Tweet = ({ likes, reKebabs, content, user, date, id }) => {
-  const handleCreateTweet = () => {};
-  const handleLikes = () => {};
-  const handleDelete = () => {};
-  const handleRetweet = () => {};
+import { useEffect, useState } from 'react';
+export const Tweet = ({
+  likes,
+  reKebabs,
+  content,
+  user,
+  date,
+  id,
+  handleDeleteTweet,
+}) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [tweetLikes, setTweetLikes] = useState(likes);
+
+  const [isReKebab, setisReKebab] = useState(false);
+  const [rtNums, setRTNum] = useState(reKebabs);
+
+  const [isOwnerTweet, setIsOwnerTweet] = useState();
+
+  useEffect(() => {
+    console.log('new tweet');
+    setIsOwnerTweet(user.username === localStorage.getItem('user'));
+  }, [isOwnerTweet, setIsOwnerTweet, user.username]);
+  const handleLikes = async () => {
+    if (!isLiked) {
+      setTweetLikes(tweetLikes + 1);
+      setIsLiked(true);
+      await tweet(localStorage.getItem('token')).likeTweet(id);
+    } else if (isLiked) {
+      setTweetLikes(tweetLikes - 1);
+      setIsLiked(false);
+      await tweet(localStorage.getItem('token')).likeTweet(
+        { like: tweetLikes },
+        id
+      );
+    }
+  };
+
+  const handleRetweet = async () => {
+    if (!isReKebab) {
+      setRTNum(rtNums + 1);
+      setisReKebab(true);
+      await tweet(localStorage.getItem('token')).reTweet(id);
+    } else if (isReKebab) {
+      setRTNum(rtNums - 1);
+      setisReKebab(false);
+      await tweet(localStorage.getItem('token')).reTweet(id);
+    }
+  };
+
+  const handleDel = async () => {
+    handleDeleteTweet(id);
+  };
   return (
     <Box display="flex" borderBottom="1px" borderColor="gray.500">
       <Flex
@@ -50,9 +103,19 @@ export const Tweet = ({ likes, reKebabs, content, user, date, id }) => {
           pr="16"
           m="0"
         >
-          <TweetButtons type={<ChatIcon />} number={'0'} />
-          <TweetButtons type={<RepeatIcon />} number={reKebabs || 0} />
-          <TweetButtons type={<StarIcon />} number={likes || 0} />
+          {isOwnerTweet && (
+            <TweetButtons type={<DeleteIcon />} fn={handleDel} />
+          )}
+          <TweetButtons
+            type={<RepeatIcon />}
+            number={rtNums || 0}
+            fn={handleRetweet}
+          />
+          <TweetButtons
+            type={<StarIcon />}
+            number={tweetLikes || 0}
+            fn={handleLikes}
+          />
         </Box>
       </Stack>
     </Box>
