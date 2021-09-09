@@ -9,6 +9,7 @@ import {
 import { TweetButtons } from './TweetButtons';
 import { tweet } from '../utils/tweetRequests';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 export const Tweet = ({
   likes,
   reKebabs,
@@ -62,19 +63,21 @@ export const Tweet = ({
   };
   return (
     <Box display="flex" borderBottom="1px" borderColor="gray.500">
-      <Flex
-        boxSize="14"
-        bg="blue.200"
-        rounded="full"
-        align="center"
-        justifyContent="center"
-        fontWeight="bold"
-        mx="2"
-        mt="4"
-        position="absolute"
-      >
-        {user.username[0]}
-      </Flex>
+      <Link to={{ pathname: `/${user.username}`, state: { userID: user.id } }}>
+        <Flex
+          boxSize="14"
+          bg="blue.200"
+          rounded="full"
+          align="center"
+          justifyContent="center"
+          fontWeight="bold"
+          mx="2"
+          mt="4"
+          position="absolute"
+        >
+          {user.username[0]}
+        </Flex>
+      </Link>
       <Stack direction="column" mt="4" ml="20">
         <Box
           id="username"
@@ -83,7 +86,11 @@ export const Tweet = ({
           fontWeight="bold"
           px="2"
         >
-          {user ? user.username : 'null'}
+          <Link
+            to={{ pathname: `/${user.username}`, state: { userID: user.id } }}
+          >
+            {user ? user.username : 'null'}
+          </Link>
         </Box>
         <Box
           id="content"
