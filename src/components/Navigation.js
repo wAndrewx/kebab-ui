@@ -5,6 +5,7 @@ import {
   Text,
   Button,
   Flex,
+  Image
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { NavButton } from './NavButtons';
@@ -22,8 +23,19 @@ export const Navigation = () => {
       >
         <NavButton fallbackSrc={`${icon}twitter.png`} path="feed" />
         <NavButton fallbackSrc={`${icon}home.png`} name="Home" path="feed" />
-        <NavButton fallbackSrc={`${icon}user.png`} name="Profile" />
-        <NavButton fallbackSrc={`${icon}github.png`} name="GitHub" />
+        {/* <NavButton
+          fallbackSrc={`${icon}user.png`}
+          name="Profile"
+          path={localStorage.getItem('user')}
+        /> */}
+        <a href="https://github.com">
+          <Button rounded="full" p="3" h="100%" variant="ghost">
+            <Image fallbackSrc={`${icon}github.png`} />
+            <Text pl="6" fontSize="xl" fontWeight="light" letterSpacing="wider">
+              GitHub
+            </Text>
+          </Button>
+        </a>
         <Box>
           <ColorModeSwitcher />
         </Box>

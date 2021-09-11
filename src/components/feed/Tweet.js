@@ -28,7 +28,6 @@ export const Tweet = ({
   const [isOwnerTweet, setIsOwnerTweet] = useState();
 
   useEffect(() => {
-    console.log('new tweet');
     setIsOwnerTweet(user.username === localStorage.getItem('user'));
   }, [isOwnerTweet, setIsOwnerTweet, user.username]);
   const handleLikes = async () => {
