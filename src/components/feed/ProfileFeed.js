@@ -12,18 +12,23 @@ export const ProfileFeed = ({ userID, user }) => {
   }, []);
 
   const handleFeed = async token => {
-    let feed = await tweet(token).userProfileTweets(userID);
-    console.log(feed);
-    feed.sort((a, b) => {
-      return new Date(b.date) - new Date(a.date);
-    });
-    setTweetsFetched(feed);
+    try {
+      let feed;
+      if (userID) {
+        feed = await tweet(token).userProfileTweets(userID.userID);
+      }
+      feed.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+      });
+      setTweetsFetched(feed);
+    } catch (error) {
+      setTweetsFetched([]);
+    }
   };
 
   const handleDeleteTweet = async id => {
     let token = localStorage.getItem('token');
     let user = localStorage.getItem('user');
-    console.log(id);
     await tweet(token).deleteTweet(id);
     setTweetsFetched(
       tweetsFetched.filter(val => {
