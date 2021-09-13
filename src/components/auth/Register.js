@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import {  Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useInput } from '../utils/useInput';
 import { register } from '../utils/auth';
 import { useState } from 'react';

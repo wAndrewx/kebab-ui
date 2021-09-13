@@ -1,7 +1,6 @@
 import { Grid, GridItem } from '@chakra-ui/layout';
 import { useEffect, useState } from 'react';
 import { Redirect, useLocation, useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 import { ProfileFeed } from '../components/feed/ProfileFeed';
 import { Navigation } from '../components/Navigation';
 
@@ -11,12 +10,11 @@ export const ProfilePage = () => {
   let { user } = useParams();
   useEffect(() => {
     if (!location.state) {
-      console.log('poop');
       setRedirect(true);
     } else {
       setRedirect(false);
     }
-  }, []);
+  }, [location.state]);
   return (
     <div>
       {!redirect && (

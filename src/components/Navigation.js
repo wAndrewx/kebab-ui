@@ -23,12 +23,12 @@ export const Navigation = () => {
       >
         <NavButton fallbackSrc={`${icon}twitter.png`} path="feed" />
         <NavButton fallbackSrc={`${icon}home.png`} name="Home" path="feed" />
-        {/* <NavButton
+        <NavButton
           fallbackSrc={`${icon}user.png`}
           name="Profile"
           path={localStorage.getItem('user')}
-        /> */}
-        <a href="https://github.com">
+        />
+        <a href="https://github.com/wAndrewx/kebab-api">
           <Button rounded="full" p="3" h="100%" variant="ghost">
             <Image fallbackSrc={`${icon}github.png`} />
             <Text pl="6" fontSize="xl" fontWeight="light" letterSpacing="wider">

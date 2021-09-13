@@ -53,4 +53,11 @@ const passwordAPIChecker = async password => {
   return regex.test(body); // true (pwned), false (not pwned)
 };
 
-export { register, login };
+const verify = async hash => {
+  let res = await axios.get(
+    `${process.env.REACT_APP_DEV_API}/api/register/verify/${hash}`
+  );
+  return res;
+};
+
+export { register, login, verify };

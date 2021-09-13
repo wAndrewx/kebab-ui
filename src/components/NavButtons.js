@@ -1,4 +1,4 @@
-import { Box, Button, Image, Text } from '@chakra-ui/react';
+import { Button, Image, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 export const NavButton = ({ fallbackSrc, name, path }) => {

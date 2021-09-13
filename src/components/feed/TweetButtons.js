@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Text } from '@chakra-ui/react';
+import { Box,  IconButton, Text } from '@chakra-ui/react';
 
 export const TweetButtons = ({ number, fn, type, id }) => {
   return (

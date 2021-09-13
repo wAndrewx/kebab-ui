@@ -1,12 +1,10 @@
-import { Box, Button, Flex, Textarea, VStack } from '@chakra-ui/react';
-import { useCallback, useState, useEffect } from 'react';
+import { Box } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
 import { tweet } from '../utils/tweetRequests';
-import { useInput } from '../utils/useInput';
 import { Tweet } from './Tweet';
 
 export const ProfileFeed = ({ userID, user }) => {
   const [tweetsFetched, setTweetsFetched] = useState([]);
-  const contentTweet = useInput();
   useEffect(() => {
     handleFeed(localStorage.getItem('token'));
   }, []);
@@ -28,7 +26,6 @@ export const ProfileFeed = ({ userID, user }) => {
 
   const handleDeleteTweet = async id => {
     let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
     await tweet(token).deleteTweet(id);
     setTweetsFetched(
       tweetsFetched.filter(val => {

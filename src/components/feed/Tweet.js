@@ -1,11 +1,5 @@
-import { Box, Button, Flex, IconButton, Stack, Text } from '@chakra-ui/react';
-import {
-  ChatIcon,
-  DeleteIcon,
-  Icon,
-  RepeatIcon,
-  StarIcon,
-} from '@chakra-ui/icons';
+import { Box, Flex, Stack } from '@chakra-ui/react';
+import { DeleteIcon, RepeatIcon, StarIcon } from '@chakra-ui/icons';
 import { TweetButtons } from './TweetButtons';
 import { tweet } from '../utils/tweetRequests';
 import { useEffect, useState } from 'react';
@@ -30,7 +24,9 @@ export const Tweet = ({
   useEffect(() => {
     setIsOwnerTweet(user.username === localStorage.getItem('user'));
   }, [isOwnerTweet, setIsOwnerTweet, user.username]);
+
   const handleLikes = async () => {
+    console.log(isLiked);
     if (!isLiked) {
       setTweetLikes(tweetLikes + 1);
       setIsLiked(true);
@@ -38,11 +34,9 @@ export const Tweet = ({
     } else if (isLiked) {
       setTweetLikes(tweetLikes - 1);
       setIsLiked(false);
-      await tweet(localStorage.getItem('token')).likeTweet(
-        { like: tweetLikes },
-        id
-      );
+      await tweet(localStorage.getItem('token')).likeTweet(id);
     }
+    console.log(isLiked);
   };
 
   const handleRetweet = async () => {
@@ -77,7 +71,7 @@ export const Tweet = ({
           {user.username[0]}
         </Flex>
       </Link>
-      <Stack direction="column" mt="4" ml="20">
+      <Stack direction="column" mt="4" ml="20" w="100%">
         <Box
           id="username"
           display="flex"
@@ -91,23 +85,16 @@ export const Tweet = ({
             {user ? user.username : 'null'}
           </Link>
         </Box>
-        <Box
-          id="content"
-          fontSize="md"
-          display="flex"
-          alignSelf="baseline"
-          m="0"
-          p="2"
-        >
+        <Box id="content" fontSize="md" display="flex" p="2">
           {content}
         </Box>
+        {/* Tweet buttons */}
         <Box
           id="tweet-buttons"
           display="flex"
-          alignItems="baseline"
-          justifyContent="space-between"
           pr="16"
           m="0"
+          justifyContent="space-between"
         >
           {isOwnerTweet && (
             <TweetButtons type={<DeleteIcon />} fn={handleDel} />

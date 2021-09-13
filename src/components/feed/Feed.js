@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Textarea, VStack } from '@chakra-ui/react';
-import { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { tweet } from '../utils/tweetRequests';
 import { useInput } from '../utils/useInput';
 import { Tweet } from './Tweet';
@@ -35,8 +35,6 @@ export const Feed = () => {
 
   const handleDeleteTweet = async id => {
     let token = localStorage.getItem('token');
-    let user = localStorage.getItem('user');
-    console.log(id);
     await tweet(token).deleteTweet(id);
     setTweetsFetched(
       tweetsFetched.filter(val => {
@@ -94,7 +92,7 @@ export const Feed = () => {
             placeholder={"What's happening?"}
             onChange={e => {
               contentTweet.handleData(e);
-              console.log(280 - e.target.value.length);
+              // console.log(280 - e.target.value.length);
             }}
           />
           <Button
@@ -118,9 +116,10 @@ export const Feed = () => {
               usersRetweet={item.usersRetweet}
               reKebabs={item.reKebabs}
               content={item.content}
-              user={item.user}
+              user={item.user || { username: 'User' }}
               date={item.date}
               id={item.id}
+              key={index}
               handleDeleteTweet={handleDeleteTweet}
             />
           );
