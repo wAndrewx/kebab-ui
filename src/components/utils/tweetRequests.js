@@ -48,7 +48,7 @@ export const tweet = token => {
   };
   const userProfileTweets = async id => {
     try {
-      let res = await axios.get(`${API_URL}/api/kebab/${id}`, options);
+      let res = await axios.get(`${API_URL}/api/kebab/profile/${id}`, options);
       return res.data;
     } catch (error) {
       return error.response.data;

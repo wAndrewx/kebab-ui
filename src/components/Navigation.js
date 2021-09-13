@@ -5,7 +5,7 @@ import {
   Text,
   Button,
   Flex,
-  Image
+  Image,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { NavButton } from './NavButtons';
@@ -23,11 +23,11 @@ export const Navigation = () => {
       >
         <NavButton fallbackSrc={`${icon}twitter.png`} path="feed" />
         <NavButton fallbackSrc={`${icon}home.png`} name="Home" path="feed" />
-        <NavButton
+        {/* <NavButton
           fallbackSrc={`${icon}user.png`}
           name="Profile"
           path={localStorage.getItem('user')}
-        />
+        /> */}
         <a href="https://github.com/wAndrewx/kebab-api">
           <Button rounded="full" p="3" h="100%" variant="ghost">
             <Image fallbackSrc={`${icon}github.png`} />
