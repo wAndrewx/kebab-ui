@@ -47,10 +47,10 @@ export const LoginPage = () => {
           rounded="xl"
           mx="16"
         >
-          This is the front end, to interface the Twitter mock API. The API is
+          This is the front end, to interface and showcase the Twitter mock API. The API is
           hosted on AWS Lambda using serverless and managed by AWS API gateway.
           <Divider py="2" />
-          You can checkout the code{' '}
+          You can checkout and read more about it{' '}
           <Link
             textDecoration="underline"
             href="https://github.com/wAndrewx/kebab-api"
@@ -66,7 +66,6 @@ export const LoginPage = () => {
           <Tab mx="2">Login</Tab>
           <Tab mx="2">Register</Tab>
         </TabList>
-
         <TabPanels>
           <TabPanel>
             <Login />

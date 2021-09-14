@@ -1,15 +1,18 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Spinner, Flex, Text } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { tweet } from '../utils/tweetRequests';
 import { Tweet } from './Tweet';
 
 export const ProfileFeed = ({ userID, user }) => {
   const [tweetsFetched, setTweetsFetched] = useState([]);
+  const [feedIsLoading, setIsFeedLoading] = useState(false);
+
   useEffect(() => {
     handleFeed(localStorage.getItem('token'));
   }, []);
 
   const handleFeed = async token => {
+    setIsFeedLoading(true);
     try {
       let feed;
       if (userID) {
@@ -22,6 +25,7 @@ export const ProfileFeed = ({ userID, user }) => {
     } catch (error) {
       setTweetsFetched([]);
     }
+    setIsFeedLoading(false);
   };
 
   const handleDeleteTweet = async id => {
@@ -52,7 +56,10 @@ export const ProfileFeed = ({ userID, user }) => {
         {user}'s Latest Tweets
       </Box>
 
-      <Box>
+      <Flex flexDirection="column" borderBottom="1px" borderColor="gray.500">
+        {feedIsLoading && (
+          <Spinner m="4" alignSelf="center" size="xl"></Spinner>
+        )}
         {tweetsFetched.map((item, index) => {
           return (
             <Tweet
@@ -68,8 +75,10 @@ export const ProfileFeed = ({ userID, user }) => {
             />
           );
         })}
-        No more Tweets
-      </Box>
+        <Text alignSelf="center" m="2">
+          End of the road
+        </Text>
+      </Flex>
     </Box>
   );
 };

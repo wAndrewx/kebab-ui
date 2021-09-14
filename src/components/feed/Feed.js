@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Textarea, VStack } from '@chakra-ui/react';
+import { Box, Button, Flex, Textarea, VStack, Spinner } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { tweet } from '../utils/tweetRequests';
 import { useInput } from '../utils/useInput';
@@ -6,12 +6,17 @@ import { Tweet } from './Tweet';
 export const Feed = () => {
   const [tweetsFetched, setTweetsFetched] = useState([]);
   const contentTweet = useInput();
+  const [postIsLoading, setIsPostLoading] = useState(false);
+  const [feedIsLoading, setIsFeedLoading] = useState(false);
+
   useEffect(() => {
     handleFeed(localStorage.getItem('token'));
   }, []);
 
   const handleFeed = async token => {
+    setIsFeedLoading(true);
     let feed = await tweet(token).getTweet();
+    setIsFeedLoading(false);
     feed.data.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
@@ -20,6 +25,7 @@ export const Feed = () => {
 
   const handlePost = async e => {
     e.preventDefault();
+    setIsPostLoading(true);
     let token = localStorage.getItem('token');
     let content = { content: contentTweet.data };
     if (contentTweet.data.length > 0) {
@@ -29,8 +35,9 @@ export const Feed = () => {
           return new Date(b.date) - new Date(a.date);
         })
       );
-      contentTweet.resetField();
     }
+    contentTweet.resetField();
+    setIsPostLoading(false);
   };
 
   const handleDeleteTweet = async id => {
@@ -102,29 +109,35 @@ export const Feed = () => {
             bg="twitter.500"
             rounded="full"
             onClick={handlePost}
+            isLoading={postIsLoading}
+            loadingText={'Submitting'}
           >
             Tweet
           </Button>
         </VStack>
       </Box>
-      <Box maxW="600px">
-        {tweetsFetched.map((item, index) => {
-          return (
-            <Tweet
-              likes={item.likes}
-              usersLiked={item.usersLiked}
-              usersRetweet={item.usersRetweet}
-              reKebabs={item.reKebabs}
-              content={item.content}
-              user={item.user || { username: 'User' }}
-              date={item.date}
-              id={item.id}
-              key={index}
-              handleDeleteTweet={handleDeleteTweet}
-            />
-          );
-        })}
-      </Box>
+      <Flex flexDirection="column">
+        {!feedIsLoading &&
+          tweetsFetched.map((item, index) => {
+            return (
+              <Tweet
+                likes={item.likes}
+                usersLiked={item.usersLiked}
+                usersRetweet={item.usersRetweet}
+                reKebabs={item.reKebabs}
+                content={item.content}
+                user={item.user || { username: 'User' }}
+                date={item.date}
+                id={item.id}
+                key={index}
+                handleDeleteTweet={handleDeleteTweet}
+              />
+            );
+          })}
+        {feedIsLoading && (
+          <Spinner m="4" alignSelf="center" size="xl"></Spinner>
+        )}
+      </Flex>
     </Box>
   );
 };

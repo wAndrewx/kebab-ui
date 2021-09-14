@@ -10,19 +10,23 @@ export const Login = () => {
   const password = useInput();
   const [notification, setNotif] = useState('');
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     const loginObject = {
       password: password.data,
       username: username.data,
     };
     const logging = await login(loginObject);
     setNotif(logging.message);
+    setLoading(false);
     if (logging.token) {
       localStorage.setItem('token', logging.token);
       localStorage.setItem('isLogged', true);
       localStorage.setItem('user', logging.user);
+      
       history.push('/feed');
     }
   };
@@ -50,7 +54,13 @@ export const Login = () => {
           type="password"
         />
       </FormControl>
-      <Button my="4" rounded="full" type="submit">
+      <Button
+        my="4"
+        rounded="full"
+        type="submit"
+        isLoading={loading}
+        loadingText={'Submitting'}
+      >
         Submit
       </Button>
       <AuthAlert message={notification} />

@@ -39,7 +39,7 @@ export const Navigation = () => {
         <Box>
           <ColorModeSwitcher />
         </Box>
-        <Button
+        {/* <Button
           as="button"
           rounded="full"
           fontWeight="bold"
@@ -50,7 +50,7 @@ export const Navigation = () => {
           bg="twitter.500"
         >
           Tweet
-        </Button>
+        </Button> */}
         <Text p="3" fontSize="xs" color="twitter.300">
           Created by Andrew Huynh
         </Text>
