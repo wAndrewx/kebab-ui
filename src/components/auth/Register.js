@@ -1,4 +1,4 @@
-import {  Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useInput } from '../utils/useInput';
 import { register } from '../utils/auth';
 import { useState } from 'react';
@@ -10,15 +10,18 @@ export const Register = () => {
 
   const [notification, setNotif] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     const registerObject = {
       username: username.data,
       password: password.data,
       email: email.data,
     };
     const reg = await register(registerObject);
-
+    setLoading(false);
     setNotif(reg.message);
   };
 
@@ -54,7 +57,13 @@ export const Register = () => {
           }}
         />
       </FormControl>
-      <Button my="4" rounded="full" type="submit" style={{ isLoading: false }}>
+      <Button
+        my="4"
+        rounded="full"
+        type="submit"
+        isLoading={loading}
+        loadingText={'Submitting'}
+      >
         Submit
       </Button>
       <AuthAlert message={notification} />
