@@ -17,7 +17,6 @@ export const Register = () => {
       password: password.data,
       email: email.data,
     };
-    // console.log(registerObject);
     const reg = await register(registerObject);
 
     setNotif(reg.message);

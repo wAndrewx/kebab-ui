@@ -49,7 +49,6 @@ const passwordAPIChecker = async password => {
   let body = await res.data;
 
   let regex = new RegExp(`^${suffix}:`, 'm');
-  console.log(regex.test(body));
   return regex.test(body); // true (pwned), false (not pwned)
 };
 
