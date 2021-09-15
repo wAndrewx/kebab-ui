@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/04c3ae81-9c62-4e91-ac9c-a8b8698cffc7/deploy-status)](https://app.netlify.com/sites/twittermock/deploys)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
