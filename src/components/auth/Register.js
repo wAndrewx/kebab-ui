@@ -22,7 +22,12 @@ export const Register = () => {
     };
     const reg = await register(registerObject);
     setLoading(false);
-    setNotif(reg.message);
+    console.log(typeof reg.message);
+    if (typeof reg.message === 'object') {
+      setNotif('Account Created, verify your email');
+    } else {
+      setNotif(reg.message);
+    }
   };
 
   return (
