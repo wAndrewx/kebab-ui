@@ -54,7 +54,7 @@ const passwordAPIChecker = async password => {
 
 const verify = async hash => {
   let res = await axios.get(
-    `${process.env.REACT_APP_DEV_API}/api/register/verify/${hash}`
+    `${process.env.REACT_APP_DEV_API}/api/verify/${hash}`
   );
   return res;
 };
